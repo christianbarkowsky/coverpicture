@@ -160,7 +160,6 @@ class ModuleCoverPicture extends Module
 
         $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
     }
-
 }
 
 ?>
