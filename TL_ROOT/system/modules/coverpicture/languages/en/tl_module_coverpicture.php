@@ -40,6 +40,7 @@ $GLOBALS['TL_LANG']['tl_module_coverpicture']['no_inheritance'] = array('Not inh
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['standard'] = array('Standard picture', 'Please select if this picture used as default.');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['imageMap'] = array('Image map area tags', 'To add an image map to your cover picture, just enter all area tags for the image map here.');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['use_as_background'] = array('Use as background image', 'Would you like to use the picture in background?');
+$GLOBALS['TL_LANG']['tl_module_coverpicture']['bgCssID'] = array('Container Name', 'Would you like to use the picture in background?');
 
 
 /**

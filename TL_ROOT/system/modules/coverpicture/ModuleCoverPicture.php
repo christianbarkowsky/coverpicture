@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Christian Barkowsky 2009-2011
+ * @copyright  Christian Barkowsky 2009-2012
  * @author     Christian Barkowsky <http://www.christianbarkowsky.de>
  * @package    CoverPicture
  * @license    LGPL
@@ -35,6 +35,7 @@ class ModuleCoverPicture extends Module
      * @var string
      */
     protected $strTemplate = 'mod_coverpicture';
+
 
     /**
      * Display a wildcard in the back end
@@ -57,6 +58,7 @@ class ModuleCoverPicture extends Module
 
         return parent::generate();
     }
+
 
     /**
      * Generate module
@@ -136,6 +138,7 @@ class ModuleCoverPicture extends Module
         }
     }
 
+
     /**
      * get the standard piture
      */
@@ -143,6 +146,7 @@ class ModuleCoverPicture extends Module
     {
         return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, bgrepeat, bgCssID FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
     }
+
 
     /**
      * Generate background image
