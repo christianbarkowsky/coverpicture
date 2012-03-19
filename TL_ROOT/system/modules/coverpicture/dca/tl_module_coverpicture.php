@@ -154,9 +154,9 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['size'],
 			'exclude'                 => true,
 			'inputType'               => 'imageSize',
-			'options'                 => array('proportional', 'crop', 'box'),
+			'options'                 => version_compare(VERSION, '2.11', '>=') ? $GLOBALS['TL_CROP'] : array('proportional', 'crop', 'box'),
 			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50')
 		),
 		'no_inheritance' => array
 		(
