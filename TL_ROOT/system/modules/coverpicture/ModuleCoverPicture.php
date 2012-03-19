@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Christian Barkowsky 2009-2011
+ * @copyright  Christian Barkowsky 2009-2012
  * @author     Christian Barkowsky <http://www.christianbarkowsky.de>
  * @package    CoverPicture
  * @license    LGPL
@@ -141,7 +141,7 @@ class ModuleCoverPicture extends Module
      */
     protected function GetStandardCoverPicture ()
     {
-        return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, bgrepeat, bgCssID FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
+        return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
     }
 
     /**
@@ -158,9 +158,8 @@ class ModuleCoverPicture extends Module
             $sector = html_entity_decode ($objCoverPicture['bgCssID']);
         }
 
-        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.$objCoverPicture['bgcolor'].' url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
     }
-
 }
 
 ?>

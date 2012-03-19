@@ -16,6 +16,7 @@ CREATE TABLE `tl_module_coverpicture` (
   `bgposition` varchar(32) NOT NULL default '',
   `bgrepeat` varchar(32) NOT NULL default '',
   `bgCssID` varchar(255) NOT NULL default '',
+  `bgcolor` varchar(64) NOT NULL default '',
   `imageMap` blob NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

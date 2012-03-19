@@ -106,14 +106,14 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('resize_image', 'use_as_background'),
-		'default'                     => '{title_legend},title;{config_legend},singleSRC,jumpTo;{image_legend},resize_image;{imagemap_legend:hide},imageMap;{background_legend:hide},use_as_background;{extended_config_legend:hide},no_inheritance,standard'
+		'default'                     => '{title_legend},title;{config_legend},singleSRC,jumpTo;{image_legend:hide},resize_image;{imagemap_legend:hide},imageMap;{background_legend:hide},use_as_background;{extended_config_legend:hide},no_inheritance,standard'
 	),
 
 	// Subpalettes
 	'subpalettes' => array
 	(
 		'resize_image' => 'size',
-		'use_as_background' => 'bgposition,bgrepeat,bgCssID',
+		'use_as_background' => 'bgposition,bgrepeat,bgCssID,bgcolor',
 	),
 
 	// Fields
@@ -205,8 +205,45 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+		),
+		'bgcolor' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['bgcolor'],
+			'inputType'               => 'text',
+			'eval'                    => array('maxlength'=>6, 'multiple'=>false, 'size'=>1, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
+			'wizard' => array
+			(
+				array('tl_module_coverpicture', 'colorPicker')
+			)
 		)
 	)
 );
+
+
+/**
+ * Class tl_module_coverpicture
+ */
+class tl_module_coverpicture extends Backend
+{
+	/**
+	 * Return the color picker wizard
+	 * @param DataContainer
+	 * @return string
+	 */
+	public function colorPicker(DataContainer $dc)
+	{
+		return ' ' . $this->generateImage('pickcolor.gif', $GLOBALS['TL_LANG']['MSC']['colorpicker'], 'style="vertical-align:top;cursor:pointer" id="moo_'.$dc->field.'"') . '
+  <script>
+  new MooRainbow("moo_'.$dc->field.'", {
+    id:"ctrl_' . $dc->field . '",
+    startColor:((cl = $("ctrl_' . $dc->field . '").value.hexToRgb(true)) ? cl : [255, 0, 0]),
+    imgPath:"plugins/colorpicker/images/",
+    onComplete: function(color) {
+      $("ctrl_' . $dc->field . '").value = color.hex.replace("#", "");
+    }
+  });
+  </script>';
+	}
+}
 
 ?>
