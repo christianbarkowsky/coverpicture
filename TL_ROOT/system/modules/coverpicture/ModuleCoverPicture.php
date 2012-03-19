@@ -158,7 +158,7 @@ class ModuleCoverPicture extends Module
             $sector = html_entity_decode ($objCoverPicture['bgCssID']);
         }
 
-        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.$objCoverPicture['bgcolor'].' url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
     }
 }
 
