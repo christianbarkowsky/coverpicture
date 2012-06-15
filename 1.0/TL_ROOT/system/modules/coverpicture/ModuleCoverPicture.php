@@ -67,7 +67,7 @@ class ModuleCoverPicture extends Module
 
         $this->Template->imagepath = '';
 
-        $query = "SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, bgrepeat, bgCssID FROM tl_module_coverpicture WHERE jumpTo=?";
+        $query = "SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID FROM tl_module_coverpicture WHERE jumpTo=?";
         $query_tl_page = "SELECT id, pid, type FROM tl_page WHERE id=?";
 
         $objCoverPicture = $this->Database->prepare ($query)->execute ($objPage->id)->fetchAssoc ();
@@ -141,7 +141,7 @@ class ModuleCoverPicture extends Module
      */
     protected function GetStandardCoverPicture ()
     {
-        return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
+        return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
     }
 
     /**
@@ -157,8 +157,10 @@ class ModuleCoverPicture extends Module
         {
             $sector = html_entity_decode ($objCoverPicture['bgCssID']);
         }
+        
+        $backgroundPosition = ($objCoverPicture['abgposition'] != '') ? $objCoverPicture['abgposition'] : $objCoverPicture['bgposition'];
 
-        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objCoverPicture['singleSRC'] . '") ' . $objCoverPicture['bgposition'] . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objCoverPicture['singleSRC'] . '") ' . $backgroundPosition . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
     }
 }
 
