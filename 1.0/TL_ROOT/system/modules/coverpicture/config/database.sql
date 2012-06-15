@@ -14,6 +14,7 @@ CREATE TABLE `tl_module_coverpicture` (
   `standard` char(1) NOT NULL default '0',
   `use_as_background` char(1) NOT NULL default '0',
   `bgposition` varchar(32) NOT NULL default '',
+  `abgposition` varchar(64) NOT NULL default '',
   `bgrepeat` varchar(32) NOT NULL default '',
   `bgCssID` varchar(255) NOT NULL default '',
   `bgcolor` varchar(64) NOT NULL default '',

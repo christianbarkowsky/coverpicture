@@ -113,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 	'subpalettes' => array
 	(
 		'resize_image' => 'size',
-		'use_as_background' => 'bgposition,bgrepeat,bgCssID,bgcolor',
+		'use_as_background' => 'bgposition,bgrepeat,bgCssID,bgcolor,abgposition',
 	),
 
 	// Fields
@@ -215,7 +215,14 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			(
 				array('tl_module_coverpicture', 'colorPicker')
 			)
-		)
+		),
+		'abgposition' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'],
+			'inputType'               => 'text',
+			'exclude'                 => true,
+			'eval'                    => array('maxlength'=>64)
+		),
 	)
 );
 
