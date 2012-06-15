@@ -42,7 +42,7 @@ $GLOBALS['TL_LANG']['tl_module_coverpicture']['imageMap'] = array('Image Map Are
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['use_as_background'] = array('Als Hintergrundbild verwenden', 'Soll das Bild als Hintergrundgrafik verwendet werden?');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['bgCssID'] = array('Container Name', 'In welchem Container soll das Hintergrundbild angezeigt werden? Standard: body. Bsp. #main');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['bgcolor'] = array('Hintergrund', 'Hier können Sie eine hexadezimale Hintergrundfarbe (z.B. ff0000 für rot) eingeben.');
-$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'] = array('Alternativ-Hintergrundposition', 'Hier können Sie eine Alternativ-Hintergrundposition eingeben.');
+$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'] = array('Alternativ-Hintergrundposition', 'Hier können Sie eine Alternativ-Hintergrundposition eingeben (z.B. centern 50px).');
 
 
 /**

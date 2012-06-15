@@ -42,6 +42,7 @@ $GLOBALS['TL_LANG']['tl_module_coverpicture']['imageMap'] = array('Image map are
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['use_as_background'] = array('Use as background image', 'Would you like to use the picture in background?');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['bgCssID'] = array('Container Name', 'Would you like to use the picture in background?');
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['bgcolor'] = array('Background color', 'Here you can enter a hexadecimal background color (e.g. ff0000 for red).');
+$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'] = array('Alternative background position', 'Add a alternative background position (e.g. center 50px).');
 
 
 /**
