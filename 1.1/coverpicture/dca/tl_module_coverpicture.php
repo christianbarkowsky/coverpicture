@@ -98,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('resize_image', 'use_as_background'),
-		'default'                     => '{title_legend},title;{config_legend},singleSRC,jumpTo;{image_legend:hide},resize_image;{imagemap_legend:hide},imageMap;{background_legend:hide},use_as_background;{extended_config_legend:hide},no_inheritance,standard'
+		'default'                     => '{title_legend},title;{config_legend},singleSRC,jumpTo,multiPages;{image_legend:hide},resize_image;{imagemap_legend:hide},imageMap;{background_legend:hide},use_as_background;{extended_config_legend:hide},no_inheritance,standard'
 	),
 
 	// Subpalettes
@@ -135,16 +135,15 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'explanation'             => 'jumpTo'
 		),
 		
-		/*
+		/**/
 		'multiPages' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['multiPages'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['jumpTo'],
 			'exclude'                 => true,
 			'inputType'               => 'pageTree',
-			'eval'                    => array('fieldType'=>'checkbox', 'files'=>true, 'mandatory'=>true)
-			'eval'                    => array('fieldType'=>'radio', 'helpwizard'=>true),
+			'eval'                    => array('fieldType'=>'checkbox', 'files'=>false, 'mandatory'=>true)
 		),
-		*/
+		/**/
 		
 		'resize_image' => array
 		(

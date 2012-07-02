@@ -8,6 +8,7 @@ CREATE TABLE `tl_module_coverpicture` (
   `title` varchar(128) NOT NULL default '',
   `resize_image` char(1) NOT NULL default '0',
   `singleSRC` varchar(255) NOT NULL default '',
+  `multiPages` blob NULL,
   `jumpTo` smallint(5) unsigned NOT NULL default '0',
   `size` varchar(64) NOT NULL default '',
   `no_inheritance` char(1) NOT NULL default '0',
