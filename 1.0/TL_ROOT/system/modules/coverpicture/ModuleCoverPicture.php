@@ -67,7 +67,7 @@ class ModuleCoverPicture extends Module
 
         $this->Template->imagepath = '';
 
-        $query = "SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID FROM tl_module_coverpicture WHERE jumpTo=?";
+        $query = "SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE jumpTo=?";
         $query_tl_page = "SELECT id, pid, type FROM tl_page WHERE id=?";
 
         $objCoverPicture = $this->Database->prepare ($query)->execute ($objPage->id)->fetchAssoc ();
