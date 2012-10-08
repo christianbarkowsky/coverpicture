@@ -21,8 +21,8 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Christian Barkowsky 2009-2011
- * @author     Christian Barkowsky <http://www.97media.de>
+ * @copyright  Christian Barkowsky 2009-2012
+ * @author     Christian Barkowsky <http://www.christianbarkowsky.de>
  * @package    CoverPicture
  * @license    LGPL
  */
@@ -188,6 +188,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 		'bgposition' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_style']['bgposition'],
+			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => array('left top', 'left center', 'left bottom', 'center top', 'center center', 'center bottom', 'right top', 'right center', 'right bottom'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
@@ -195,6 +196,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 		'bgrepeat' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_style']['bgrepeat'],
+			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => array('repeat', 'repeat-x', 'repeat-y', 'no-repeat'),
 			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
@@ -209,6 +211,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 		'bgcolor' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['bgcolor'],
+			'exclude'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>6, 'multiple'=>false, 'size'=>1, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
 			'wizard' => array
@@ -219,8 +222,8 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 		'abgposition' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'],
-			'inputType'               => 'text',
 			'exclude'                 => true,
+			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>64)
 		),
 	)
