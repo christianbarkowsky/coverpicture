@@ -17,7 +17,7 @@
 ClassLoader::addClasses(array
 (
 	// Models
-	'Contao\CoverpictureModel' => 'system/modules/coverpicture/models/CoverpictureModel.php',
+	'Contao\ModuleCoverpictureModel' => 'system/modules/coverpicture/models/ModuleCoverpictureModel.php',
 
 	// Modules
 	'Contao\ModuleCoverPicture' => 'system/modules/coverpicture/modules/ModuleCoverPicture.php',

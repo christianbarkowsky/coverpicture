@@ -50,64 +50,61 @@ class ModuleCoverPicture extends \Module
     protected function compile()
     {
         global $objPage;
-
+        
         $this->Template->imagepath = '';
 
-        $query = "SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE jumpTo=?";
-        $query_tl_page = "SELECT id, pid, type FROM tl_page WHERE id=?";
+        $objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objPage->id);
 
-        $objCoverPicture = $this->Database->prepare ($query)->execute ($objPage->id)->fetchAssoc();
-
-        if ($objCoverPicture['singleSRC'] == '')
+        if($objCoverPicture->singleSRC == '')
         {
             //get parent page
-            $objParentPage = $this->Database->prepare ($query_tl_page)->execute ($objPage->id)->fetchAssoc ();
-
-            while ((($objCoverPicture['singleSRC'] == '') || ($objCoverPicture['no_inheritance'] == 1)) && ($objParentPage['type'] != 'root') )
+            $objParentPage = \PageModel::findOneBy('id', $objPage->id);
+           
+            while((($objCoverPicture->singleSRC == '') || ($objCoverPicture->no_inheritance == 1)) && ($objParentPage->type != 'root'))
             {
-                $objCoverPicture = $this->Database->prepare ($query)->execute($objParentPage['pid'])->fetchAssoc ();
-                
+				$objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objParentPage->id);
+				
+				if($objCoverPicture->no_inheritance == 1)
+				{
+					$objParentPage = \PageModel::findOneBy('id', $objParentPage->pid);
+					$objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objParentPage->id);
+				}
+				
                 // next parent ...
-                if ( $objParentPage['pid'] )
+                if($objParentPage->pid && $objCoverPicture->no_inheritance == 0)
                 {
-                    $objParentPage = $this->Database->prepare ($query_tl_page)->execute ($objParentPage['pid'])->fetchAssoc ();
+                    $objParentPage = \PageModel::findOneBy('id', $objParentPage->pid);
                 }
             }
         }
 
         // no Picture found -> default
-        if (!$objCoverPicture)
+        if(!$objCoverPicture)
         {
-            $objCoverPicture = $this->GetStandardCoverPicture();
+            $objCoverPicture = \ModuleCoverpictureModel::findByStandard(1);
         }
 
-        $objFile = \FilesModel::findByPk($objCoverPicture['singleSRC']);
+        $objFile = $this->getCoverpictureImageObjFile($objCoverPicture->singleSRC);
 
-		if ($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))
+		if($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))
 		{
 			$this->Template->imagepath = '';
 		}
 
-        /**
-         * Use as background image
-         */
-        if ( $objCoverPicture['use_as_background'] == false )
+        // Use as background image
+        if($objCoverPicture->use_as_background == false)
         {
             $this->Template->imagepath = $objFile->path;
 
-            /**
-             * Resize image
-             */
-            if ( $objCoverPicture['resize_image'] )
+            // Resize image
+            if ($objCoverPicture->resize_image)
             {
-                $size = deserialize ($objCoverPicture['size']);
-                $this->Template->imagepath = $this->getImage ($this->urlEncode ($objFile->path), $size[0], $size[1], $size[2]);
+                $size = deserialize($objCoverPicture->size);
+                $this->Template->imagepath = $this->getImage ($this->urlEncode($objFile->path), $size[0], $size[1], $size[2]);
             }
 
-            /**
-             * Image map (thanks to Felix Pfeiffer)
-             */
-            if ( $objCoverPicture['imageMap'] != "" )
+            // Image map (thanks to Felix Pfeiffer)
+            if($objCoverPicture->imageMap != "" )
             {
                 $imgMapID = uniqid ('imap_');
 
@@ -115,7 +112,7 @@ class ModuleCoverPicture extends \Module
 
                 $text = '<map name="%s" id="%s">%s</map>';
 
-                $this->Template->imgMap = sprintf ($text, $imgMapID, $imgMapID, $objCoverPicture['imageMap']);
+                $this->Template->imgMap = sprintf ($text, $imgMapID, $imgMapID, $objCoverPicture->imageMap);
             }
 
             $this->Template->pagetitle = $objPage->pageTitle;
@@ -129,37 +126,40 @@ class ModuleCoverPicture extends \Module
     
 
     /**
-     * get the standard piture
-     */
-    protected function GetStandardCoverPicture()
-    {
-    	print_r(\GetStandardCoverPicture::findByStandard(1));
-    
-        return $this->Database->execute("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc();
-    }
-
-
-    /**
      * Generate background image
      */
     protected function generateBackgroundImage($objCoverPicture)
     {
-    	$objFile = \FilesModel::findByPk($objCoverPicture['singleSRC']);
+    	$objFile = $this->getCoverpictureImageObjFile($objCoverPicture->singleSRC);
 
 		if ($objFile == null || is_file(TL_ROOT . '/' . $objFile->path))
 		{
-			if ( $objCoverPicture['bgCssID'] == '' )
+			if ( $objCoverPicture->bgCssID == '' )
 			{
             	$sector = 'body';
 			}
 			else
 			{
-            	$sector = html_entity_decode ($objCoverPicture['bgCssID']);
+            	$sector = html_entity_decode ($objCoverPicture->bgCssID);
 			}
         
-			$backgroundPosition = ($objCoverPicture['abgposition'] != '') ? $objCoverPicture['abgposition'] : $objCoverPicture['bgposition'];
+			$backgroundPosition = ($objCoverPicture->abgposition != '') ? $objCoverPicture->abgposition : $objCoverPicture->bgposition;
 
-			$GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objFile->path . '") ' . $backgroundPosition . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+			$GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture->bgcolor ? '#' .  $objCoverPicture->bgcolor : '').' url("' . $objFile->path . '") ' . $backgroundPosition . ' ' . $objCoverPicture->bgrepeat . '} /*]]>*/--></style>';
 		}
+    }
+    
+    
+    /**
+     * Get image object by version
+     */
+    private function getCoverpictureImageObjFile($strSingleSRC)
+    {
+	    if(version_compare(VERSION, '3.2', '<'))
+		{
+			return \FilesModel::findByPk($strSingleSRC);
+		}
+		
+		return \FilesModel::findByUuid($strSingleSRC);
     }
 }
