@@ -11,8 +11,14 @@
  */
 
 
-/**
- * Content Element
- */
-$GLOBALS['TL_LANG']['CTE']['coverpicture'] = array('Titelbild');
-$GLOBALS['TL_LANG']['MSC']['coverpicturepagetree'] = "Titelbilder-Seitenübersicht";
+namespace Contao;
+
+
+class CoverpictureModel extends \Model
+{
+
+	/**
+	 * Table name
+	 */
+	protected static $strTable = 'tl_module_coverpicture';
+}

@@ -3,10 +3,10 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2013 Christian Barkowsky
+ * Copyright (C) 2009-2014 Christian Barkowsky
  * 
  * @package CoverPicture
- * @author  Christian Barkowsky <http://www.christianbarkowsky.de>
+ * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL
  */
 
@@ -22,15 +22,19 @@ $this->loadLanguageFile('tl_style');
  */
 $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 (
-
-	// Config
 	'config' => array
 	(
 		'dataContainer'               => 'Table',
-		'enableVersioning'            => true
+		'enableVersioning'            => true,
+		'sql' => array
+		(
+			'keys' => array
+			(
+				'id' => 'primary'
+			)
+		)
 	),
 
-	// List
 	'list' => array
 	(
 		'sorting' => array
@@ -85,52 +89,64 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 		)
 	),
 
-	// Palettes
 	'palettes' => array
 	(
 		'__selector__'                => array('resize_image', 'use_as_background'),
 		'default'                     => '{title_legend},title;{config_legend},singleSRC,jumpTo;{image_legend:hide},resize_image;{imagemap_legend:hide},imageMap;{background_legend:hide},use_as_background;{extended_config_legend:hide},no_inheritance,standard'
 	),
 
-	// Subpalettes
 	'subpalettes' => array
 	(
 		'resize_image' => 'size',
 		'use_as_background' => 'bgposition,bgrepeat,bgCssID,bgcolor,abgposition',
 	),
 
-	// Fields
 	'fields' => array
 	(
+		'id' => array
+		(
+			'label'                   => array('ID'),
+			'search'                  => true,
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
 		'title' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['title'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
 			'search'                  => true,
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>128)
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>128),
+			'sql'                     => "varchar(128) NOT NULL default ''"
 		),
 		'singleSRC' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['singleSRC'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'mandatory'=>true)
+			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'mandatory'=>true),
+			'sql'                     => (version_compare(VERSION, '3.2', '<')) ? "varchar(255) NOT NULL default ''" : "binary(16) NULL",
 		),
 		'jumpTo' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['jumpTo'],
 			'exclude'                 => true,
 			'inputType'               => 'pageTree',
+			'foreignKey'              => 'tl_page.title',
 			'eval'                    => array('fieldType'=>'radio', 'helpwizard'=>true),
-			'explanation'             => 'jumpTo'
+			'explanation'             => 'jumpTo',
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 		'resize_image' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['resize_image'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'size' => array
 		(
@@ -139,20 +155,23 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'inputType'               => 'imageSize',
 			'options'                 => version_compare(VERSION, '2.11', '>=') ? $GLOBALS['TL_CROP'] : array('proportional', 'crop', 'box'),
 			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'no_inheritance' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['no_inheritance'],
 			'exclude'                 => true,
-			'inputType'               => 'checkbox'
+			'inputType'               => 'checkbox',
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'standard' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['standard'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'					  => array('unique' => true)
+			'eval'					  => array('unique' => true),
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'imageMap' => array
 		(
@@ -160,13 +179,15 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'textarea',
 			'eval'                    => array('allowHtml'=>true,'decodeEntities'=>true,'tl_class'=>'clr'),
+			'sql'                     => "blob NULL"
 		),
 		'use_as_background' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['use_as_background'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'                     => "char(1) NOT NULL default '0'"
 		),
 		'bgposition' => array
 		(
@@ -174,7 +195,8 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => array('left top', 'left center', 'left bottom', 'center top', 'center center', 'center bottom', 'right top', 'right center', 'right bottom'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(32) NOT NULL default ''"
 		),
 		'bgrepeat' => array
 		(
@@ -182,14 +204,16 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => array('repeat', 'repeat-x', 'repeat-y', 'no-repeat'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(32) NOT NULL default ''"
 		),
 		'bgCssID' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['bgCssID'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
 		'bgcolor' => array
 		(
@@ -200,14 +224,16 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'wizard' => array
 			(
 				array('tl_module_coverpicture', 'colorPicker')
-			)
+			),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 		'abgposition' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>64)
+			'eval'                    => array('maxlength'=>64),
+			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 	)
 );
@@ -238,5 +264,3 @@ class tl_module_coverpicture extends Backend
   </script>';
 	}
 }
-
-?>

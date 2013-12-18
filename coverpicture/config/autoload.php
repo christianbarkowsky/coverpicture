@@ -3,10 +3,10 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2013 Christian Barkowsky
+ * Copyright (C) 2009-2014 Christian Barkowsky
  * 
  * @package CoverPicture
- * @author  Christian Barkowsky <http://www.christianbarkowsky.de>
+ * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL
  */
 
@@ -16,6 +16,10 @@
  */
 ClassLoader::addClasses(array
 (
+	// Models
+	'Contao\CoverpictureModel' => 'system/modules/coverpicture/models/CoverpictureModel.php',
+
+	// Modules
 	'Contao\ModuleCoverPicture' => 'system/modules/coverpicture/modules/ModuleCoverPicture.php',
 ));
 
