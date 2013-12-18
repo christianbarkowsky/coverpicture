@@ -17,7 +17,7 @@
 namespace Contao;
 
 
-class ModuleCoverPicture extends Module
+class ModuleCoverPicture extends \Module
 {
     /**
      * Template
@@ -28,7 +28,7 @@ class ModuleCoverPicture extends Module
     /**
      * Display a wildcard in the back end
      */
-    public function generate ()
+    public function generate()
     {
         if (TL_MODE == 'BE')
 		{
@@ -50,7 +50,7 @@ class ModuleCoverPicture extends Module
     /**
      * Generate module
      */
-    protected function compile ()
+    protected function compile()
     {
         global $objPage;
 
@@ -78,20 +78,24 @@ class ModuleCoverPicture extends Module
         }
 
         // no Picture found -> default
-        if ( !$objCoverPicture )
+        if (!$objCoverPicture)
         {
-            $objCoverPicture = $this->GetStandardCoverPicture ();
+            $objCoverPicture = $this->GetStandardCoverPicture();
         }
 
-        // Templatevars
-        $this->Template->imagepath = $objCoverPicture['singleSRC'];
+        $objFile = \FilesModel::findByPk($objCoverPicture['singleSRC']);
+
+		if ($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))
+		{
+			$this->Template->imagepath = '';
+		}
 
         /**
          * Use as background image
          */
         if ( $objCoverPicture['use_as_background'] == false )
         {
-            $this->Template->imagepath = $objCoverPicture['singleSRC'];
+            $this->Template->imagepath = $objFile->path;
 
             /**
              * Resize image
@@ -99,7 +103,7 @@ class ModuleCoverPicture extends Module
             if ( $objCoverPicture['resize_image'] )
             {
                 $size = deserialize ($objCoverPicture['size']);
-                $this->Template->imagepath = $this->getImage ($this->urlEncode ($objCoverPicture['singleSRC']), $size[0], $size[1], $size[2]);
+                $this->Template->imagepath = $this->getImage ($this->urlEncode ($objFile->path), $size[0], $size[1], $size[2]);
             }
 
             /**
@@ -121,7 +125,7 @@ class ModuleCoverPicture extends Module
         else
         {
             $this->Template->use_as_background = true;
-            $this->generateBackgroundImage ($objCoverPicture);
+            $this->generateBackgroundImage($objCoverPicture);
         }
     }
     
@@ -129,18 +133,22 @@ class ModuleCoverPicture extends Module
     /**
      * get the standard piture
      */
-    protected function GetStandardCoverPicture ()
+    protected function GetStandardCoverPicture()
     {
-        return $this->Database->execute ("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc ();
+        return $this->Database->execute("SELECT singleSRC, jumpTo, resize_image, size, no_inheritance, imageMap, use_as_background, bgposition, abgposition, bgrepeat, bgCssID, bgcolor FROM tl_module_coverpicture WHERE standard=1")->fetchAssoc();
     }
 
 
     /**
      * Generate background image
      */
-    protected function generateBackgroundImage ($objCoverPicture)
+    protected function generateBackgroundImage($objCoverPicture)
     {
-        if ( $objCoverPicture['bgCssID'] == '' )
+    	$objFile = \FilesModel::findByPk($objCoverPicture['singleSRC']);
+
+		if ($objFile == null || is_file(TL_ROOT . '/' . $objFile->path))
+		{
+			if ( $objCoverPicture['bgCssID'] == '' )
         {
             $sector = 'body';
         }
@@ -151,7 +159,9 @@ class ModuleCoverPicture extends Module
         
         $backgroundPosition = ($objCoverPicture['abgposition'] != '') ? $objCoverPicture['abgposition'] : $objCoverPicture['bgposition'];
 
-        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objCoverPicture['singleSRC'] . '") ' . $backgroundPosition . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+        $GLOBALS['TL_HEAD'][] = '<style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ ' . $sector . ' { background: '.($objCoverPicture['bgcolor'] ? '#' .  $objCoverPicture['bgcolor'] : '').' url("' . $objFile->path . '") ' . $backgroundPosition . ' ' . $objCoverPicture['bgrepeat'] . '} /*]]>*/--></style>';
+
+		}
     }
 }
 
