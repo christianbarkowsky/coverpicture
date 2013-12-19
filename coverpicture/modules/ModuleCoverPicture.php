@@ -64,16 +64,11 @@ class ModuleCoverPicture extends \Module
             {
 				$objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objParentPage->id);
 				
-				if($objCoverPicture->no_inheritance == 1)
-				{
-					$objParentPage = \PageModel::findOneBy('id', $objParentPage->pid);
-					$objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objParentPage->id);
-				}
-				
                 // next parent ...
-                if($objParentPage->pid && $objCoverPicture->no_inheritance == 0)
+                if($objParentPage->pid)
                 {
                     $objParentPage = \PageModel::findOneBy('id', $objParentPage->pid);
+                    $objCoverPicture = \ModuleCoverpictureModel::findOneBy('jumpTo', $objParentPage->id);
                 }
             }
         }
@@ -90,7 +85,7 @@ class ModuleCoverPicture extends \Module
 		{
 			$this->Template->imagepath = '';
 		}
-
+		
         // Use as background image
         if($objCoverPicture->use_as_background == false)
         {
@@ -162,4 +157,19 @@ class ModuleCoverPicture extends \Module
 		
 		return \FilesModel::findByUuid($strSingleSRC);
     }
+    
+    
+	/**
+	* Check for memberlist extension
+	*/
+	private function checkForEasyBGStretcher()
+	{
+		foreach($this->Config->getActiveModules() as $moduleKey => $moduleName)
+		{
+			if($moduleName == 'easy_bg_stretcher')
+				return true;
+		}
+	
+		return false;
+	}
 }
