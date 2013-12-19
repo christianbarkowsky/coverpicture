@@ -3,10 +3,10 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2013 Christian Barkowsky
+ * Copyright (C) 2009-2014 Christian Barkowsky
  * 
  * @package CoverPicture
- * @author  Christian Barkowsky <http://www.christianbarkowsky.de>
+ * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL
  */
 
@@ -47,5 +47,3 @@ $GLOBALS['TL_LANG']['tl_module_coverpicture']['image_legend'] = 'Bild Einstellun
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['imagemap_legend'] = 'Image-Map Einstellungen';
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['background_legend'] = 'Hintergrund Einstellungen';
 $GLOBALS['TL_LANG']['tl_module_coverpicture']['extended_config_legend'] = 'Erweiterte Konfiguration';
-
-?>

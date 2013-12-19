@@ -3,10 +3,10 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2013 Christian Barkowsky
+ * Copyright (C) 2009-2014 Christian Barkowsky
  * 
  * @package CoverPicture
- * @author  Christian Barkowsky <http://www.christianbarkowsky.de>
+ * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL
  */
 
@@ -21,5 +21,3 @@ $GLOBALS['TL_LANG']['MOD']['coverpicture'] = array('Titelbilder', 'Titelbilder')
  * Front end modules
  */
 $GLOBALS['TL_LANG']['FMD']['coverpicture'] = array('Titelbilder', 'Titelbilder');
-
-?>
