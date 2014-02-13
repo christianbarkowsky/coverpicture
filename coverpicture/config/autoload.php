@@ -16,6 +16,9 @@
  */
 ClassLoader::addClasses(array
 (
+	// Classes
+	'Contao\CoverpictureUpdateHandler' => 'system/modules/coverpicture/classes/CoverpictureUpdateHandler.php',
+	
 	// Models
 	'Contao\ModuleCoverpictureModel' => 'system/modules/coverpicture/models/ModuleCoverpictureModel.php',
 
