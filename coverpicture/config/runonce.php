@@ -11,4 +11,4 @@
  */
  
 
-\CoverpictureUpdateHandler::run();
+\Contao\CoverpictureUpdateHandler::run();
