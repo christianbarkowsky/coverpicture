@@ -24,6 +24,9 @@
 	"autoload": {
 		"classmap": ["coverpicture/"]
 	},
+	"replace":{
+        "contao-legacy/coverpicture":"*"
+    },
 	"extra": {
 		"contao": {
 			"sources": {
