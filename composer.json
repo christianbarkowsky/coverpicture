@@ -15,11 +15,11 @@
 	],
 	"support": {
 		"email": "hallo@christianbarkowsky.de",
-		"issues": "https://github.com/christianbarkowsky/coverpicture/issues",
+		"issues": "https://github.com/christianbarkowsky/coverpicture/issues"
 	},
 	"require": {
 		"contao/core": ">=3.2,<4-dev",
-		"contao-community-alliance/composer-plugin": "~2.0",
+		"contao-community-alliance/composer-plugin": "~2.0"
 	},
 	"autoload": {
 		"classmap": ["coverpicture/"]
