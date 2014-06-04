@@ -1,20 +1,20 @@
 {
-	"name":"christianbarkowsky/coverpicture",
-	"description":"Cover picture module for Contao",
-	"keywords":["contao", "image", "page images", "cover image", "wallpaper", "header"],
-	"type":"contao-module",
-	"homepage":"http://christianbarkowsky.de",
-	"license":"LGPL-3.0+",
-	"authors":[
+	"name": "christianbarkowsky/coverpicture",
+	"description": "Cover picture module for Contao",
+	"keywords": ["contao", "image", "page images", "cover image", "wallpaper", "header"],
+	"type": "contao-module",
+	"homepage": "http://christianbarkowsky.de",
+	"license": "LGPL-3.0+",
+	"authors": [
 		{
-			"name":"Christian Barkowsky",
-			"email":"hallo@christianbarkowsky.de",
-			"homepage":"http://christianbarkowsky.de",
-			"role":"Developer"
+			"name": "Christian Barkowsky",
+			"email": "hallo@christianbarkowsky.de",
+			"homepage": "http://christianbarkowsky.de",
+			"role": "Developer"
 		}
 	],
-	"support":{
-		"issues":"https://github.com/christianbarkowsky/coverpicture/issues",
+	"support": {
+		"issues": "https://github.com/christianbarkowsky/coverpicture/issues",
 	},
 	"require": {
 		"contao/core": ">=3.2,<4-dev",
@@ -23,13 +23,13 @@
 	"autoload": {
 		"classmap": ["coverpicture/"]
 	},
-	"replace":{
-        "contao-legacy/coverpicture":"*"
-    },    
+	"replace": {
+		"contao-legacy/coverpicture": "*"
+		},
 	"extra": {
 		"contao": {
 			"sources": {
-				"coverpicture": "system/modules/coverpicture"
+				"coverpicture":"system/modules/coverpicture"
 			},
 			"runonce": ["system/modules/coverpicture/config/runonce.php"]
 		}
