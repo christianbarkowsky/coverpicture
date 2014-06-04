@@ -15,7 +15,8 @@
 	],
 	"support": {
 		"email": "hallo@christianbarkowsky.de",
-		"issues": "https://github.com/christianbarkowsky/coverpicture/issues"
+		"issues": "https://github.com/christianbarkowsky/coverpicture/issues",
+		"source": "https://github.com/christianbarkowsky/coverpicture"
 	},
 	"require": {
 		"contao/core": ">=3.2,<4-dev",
