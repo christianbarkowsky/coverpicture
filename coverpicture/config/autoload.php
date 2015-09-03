@@ -2,9 +2,9 @@
 
 /**
  * CoverPicture
- * 
- * Copyright (C) 2009-2014 Christian Barkowsky
- * 
+ *
+ * Copyright (C) 2009-2015 Christian Barkowsky
+ *
  * @package CoverPicture
  * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL
@@ -16,14 +16,11 @@
  */
 ClassLoader::addClasses(array
 (
-	// Classes
-	'Contao\CoverpictureUpdateHandler' => 'system/modules/coverpicture/classes/CoverpictureUpdateHandler.php',
-	
-	// Models
-	'Contao\ModuleCoverpictureModel' => 'system/modules/coverpicture/models/ModuleCoverpictureModel.php',
+    // Models
+    'Contao\ModuleCoverpictureModel' => 'system/modules/coverpicture/models/ModuleCoverpictureModel.php',
 
-	// Modules
-	'Contao\ModuleCoverPicture' => 'system/modules/coverpicture/modules/ModuleCoverPicture.php',
+    // Modules
+    'Contao\ModuleCoverPicture' => 'system/modules/coverpicture/modules/ModuleCoverPicture.php',
 ));
 
 
@@ -32,5 +29,5 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'mod_coverpicture' => 'system/modules/coverpicture/templates',
+    'mod_coverpicture' => 'system/modules/coverpicture/templates',
 ));
