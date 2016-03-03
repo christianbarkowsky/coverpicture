@@ -3,7 +3,7 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2014 Christian Barkowsky
+ * Copyright (C) 2009-2016 Christian Barkowsky
  * 
  * @package CoverPicture
  * @author  Christian Barkowsky <http://christianbarkowsky.de>
@@ -146,7 +146,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'eval'                    => array('submitOnChange'=>true),
-			'sql'                     => "char(1) NOT NULL default '0'"
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'size' => array
 		(
