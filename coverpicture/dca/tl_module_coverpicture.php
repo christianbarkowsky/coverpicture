@@ -195,7 +195,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options'                 => array('left top', 'left center', 'left bottom', 'center top', 'center center', 'center bottom', 'right top', 'right center', 'right bottom'),
-			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('includeBlankOption'=>true, 'tl_class'=>'w50 clr'),
 			'sql'                     => "varchar(32) NOT NULL default ''"
 		),
 		'bgrepeat' => array
@@ -232,7 +232,7 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['abgposition'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>64),
+			'eval'                    => array('maxlength'=>64, 'tl_class' => 'clr'),
 			'sql'                     => "varchar(64) NOT NULL default ''"
 		),
 	)
