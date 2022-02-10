@@ -19,8 +19,7 @@
     "source": "https://github.com/christianbarkowsky/coverpicture"
   },
   "require": {
-    "contao/core": ">=3.2,<4-dev",
-    "contao-community-alliance/composer-plugin": "~2.0"
+    "contao/core-bundle": "~4.4"
   },
   "autoload": {
     "classmap": ["coverpicture/"]
@@ -32,8 +31,7 @@
     "contao": {
       "sources": {
         "coverpicture":"system/modules/coverpicture"
-      },
-      "runonce": ["system/modules/coverpicture/config/runonce.php"]
+      }
     }
   }
 }
