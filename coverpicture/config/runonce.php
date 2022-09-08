@@ -2,9 +2,9 @@
 
 /**
  * CoverPicture
- * 
- * Copyright (C) 2009-2015 Christian Barkowsky
- * 
+ *
+ * Copyright (C) 2009-2022 Christian Barkowsky
+ *
  * @package CoverPicture
  * @author  Christian Barkowsky <http://christianbarkowsky.de>
  * @license LGPL

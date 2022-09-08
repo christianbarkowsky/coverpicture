@@ -3,23 +3,19 @@
 /**
  * CoverPicture
  * 
- * Copyright (C) 2009-2016 Christian Barkowsky
+ * Copyright (C) 2009-2022 Christian Barkowsky
  * 
  * @package CoverPicture
- * @author  Christian Barkowsky <http://christianbarkowsky.de>
+ * @author  Christian Barkowsky <https://christianbarkowsky.de>
  * @license LGPL
  */
 
+use Contao\System;
+use Contao\Backend;
+use Contao\DataContainer;
 
-/**
- * Load tl_style language file
- */
-$this->loadLanguageFile('tl_style');
+System::loadLanguageFile('tl_style');
 
-
-/**
- * Table tl_module_coverpicture
- */
 $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 (
 	'config' => array
@@ -65,26 +61,26 @@ $GLOBALS['TL_DCA']['tl_module_coverpicture'] = array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['edit'],
 				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
+				'icon'                => 'edit.svg'
 			),
 			'copy' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['copy'],
 				'href'                => 'act=copy',
-				'icon'                => 'copy.gif'
+				'icon'                => 'copy.svg'
 			),
 			'delete' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['delete'],
 				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'icon'                => 'delete.svg',
+                'attributes'          => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? null) . '\'))return false;Backend.getScrollOffset()"'
 			),
 			'show' => array
 			(
 				'label'               => &$GLOBALS['TL_LANG']['tl_module_coverpicture']['show'],
 				'href'                => 'act=show',
-				'icon'                => 'show.gif'
+				'icon'                => 'show.svg'
 			)
 		)
 	),
@@ -251,7 +247,7 @@ class tl_module_coverpicture extends Backend
 	 */
 	public function colorPicker(DataContainer $dc)
 	{
-		return ' ' . $this->generateImage('pickcolor.gif', $GLOBALS['TL_LANG']['MSC']['colorpicker'], 'style="vertical-align:top;cursor:pointer" id="moo_'.$dc->field.'"') . '
+		return ' ' . $this->generateImage('pickcolor.svg', $GLOBALS['TL_LANG']['MSC']['colorpicker'], 'style="vertical-align:top;cursor:pointer" id="moo_'.$dc->field.'"') . '
   <script>
   new MooRainbow("moo_'.$dc->field.'", {
     id:"ctrl_' . $dc->field . '",
